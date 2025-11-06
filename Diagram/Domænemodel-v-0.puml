@@ -1,0 +1,27 @@
+@startuml
+!pragma layout smetana
+
+object Bruger
+object Media
+object Film
+object Series
+object Sæson
+object Episode
+object Kategori
+
+' Arv
+Media <|-- Film : is-a
+Media <|-- Series : is-a
+
+' Komposition
+Series --  Sæson : består af
+Sæson --  Episode : består af
+
+' Association - Bruger til Media
+Bruger -- Media : har set
+Bruger -- Media : vil se
+
+' Association - Media til Kategori
+Media -- Kategori : tilhører
+
+@enduml
