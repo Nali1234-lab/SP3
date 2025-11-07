@@ -40,25 +40,25 @@ class Episode {
 }
 
 enum Category {
-  Crime
-  War
-  Drama
-  Family
-  Romance
-  Sci_Fi
-  Fantasy
-  Mystery
-  Thriller
-  Adventure
-  History
-  Biography
-  Horror
-  Animation
-  Action
-  Western
-  Documentary
-  Talk_Show
-  Sport
+ CRIME
+ WAR
+ DRAMA
+ FAMILY
+ ROMANCE
+ SCI_FI
+ FANTASY
+ MYSTERY
+ THRILLER
+ ADVENTURE
+ HISTORY
+ BIOGRAPHY
+ HORROR
+ ANIMATION
+ ACTION
+ WESTERN
+ DOCUMENTARY
+ TALK_SHOW
+ SPORT
 }
 
 class Menu {
