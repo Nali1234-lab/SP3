@@ -16,8 +16,8 @@ public class Menu {
         this.users = new ArrayList<>();
         this.media = new ArrayList<>();
 
-        this.textUI = new TextUI();
-        this.fileIO = new Fileio();
+        this.textUI = textUI;
+        this.fileIO = fileIO;
 
         this.currentUser = null; //null fordi bruger ikke er logget ind endnu
     }
