@@ -1,12 +1,13 @@
+import util.TextUI;
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-
     private String username;              //  brugernavn
     private String password;              // adgangskode
     private List<Media> watchedMedia;     // Liste over set indhold
-    private List<Media> savedMedia;       // Liste over gemt indhold
+    private List<Media> savedMedia;
+    TextUI ui;// Liste over gemt indhold
 
 
 
@@ -120,12 +121,12 @@ public class User {
     //Vis brugerens set liste
 
     public void showWatchedMedia() {
-        System.out.println("\n=== " + username + "'s Set Indhold ===");
+        ui.showMessage("\n=== " + username + "'s Set Indhold ===");
         if (watchedMedia.isEmpty()) {
-            System.out.println("Du har ikke set noget endnu.");
+            ui.showMessage("Du har ikke set noget endnu.");
         } else {
             for (int i = 0; i < watchedMedia.size(); i++) {
-                System.out.println((i + 1) + ". " + watchedMedia.get(i).getTitle());
+                ui.showMessage((i + 1) + ". " + watchedMedia.get(i).getTitle());
             }
         }
     }
@@ -133,12 +134,12 @@ public class User {
     // Vis brugerens gemte indhold
 
     public void showSavedMedia() {
-        System.out.println("\n=== " + username + "'s Gemte Indhold ===");
+        ui.showMessage("\n=== " + username + "'s Gemte Indhold ===");
         if (savedMedia.isEmpty()) {
-            System.out.println("Du har ikke gemt noget endnu.");
+            ui.showMessage("Du har ikke gemt noget endnu.");
         } else {
             for (int i = 0; i < savedMedia.size(); i++) {
-                System.out.println((i + 1) + ". " + savedMedia.get(i).getTitle());
+                ui.showMessage((i + 1) + ". " + savedMedia.get(i).getTitle());
             }
         }
     }

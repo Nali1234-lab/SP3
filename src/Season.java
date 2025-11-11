@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class Season {
     private int seasonNumber;
-    private ArrayList<Episode> episods= new ArrayList<>();
+    private ArrayList<Episode> episodes= new ArrayList<>();
 
     public Season(int seasonNumber, ArrayList<Episode> episodes){
         this.seasonNumber= seasonNumber;
-        this.episods= episodes;
+        this.episodes= episodes;
 
     }
 
@@ -20,13 +20,14 @@ public class Season {
     }
 
     public ArrayList<Episode> getEpisods() {
-        return episods;
+        return episodes;
     }
 
     public void setEpisods(ArrayList<Episode> episods) {
-        this.episods = episods;
+        this.episodes = episods;
     }
 
 
 
 }
+

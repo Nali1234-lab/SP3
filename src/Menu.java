@@ -1,5 +1,6 @@
 import util.Fileio;
 import util.TextUI;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,24 +10,25 @@ public class Menu {
     private List<Media> media;
     private User currentUser;
 
-    private TextUI textUI;
+    private TextUI ui;
     private Fileio fileIO;
 
     //constructor
-    public Menu(TextUI textUI, Fileio fileIO) {
-        this.users = new ArrayList<>();
-        this.media = new ArrayList<>();
-
-        this.textUI = new TextUI();
-        this.fileIO = new Fileio();
-
-        this.currentUser = null; //null fordi bruger ikke er logget ind endnu
+    public Menu(List<User> users, List<Media> media, User currentUser, TextUI ui, Fileio fileIO) {
+        this.users = users;
+        this.media = media;
+        this.currentUser = currentUser;
+        this.ui = ui;
+        this.fileIO = fileIO;
     }
 
 
     // start() - starter hele programmet
     public void start() {
-        textUI.showMessage("Velkommen til Streaming Menuen.");
+        ui.showMessage("Velkommen til Streaming Menuen.");
+        // kun til at teste password.
+        User testUser = new User("test", "123");
+        users.add(testUser);
 
         // Login først
         login();
@@ -39,20 +41,20 @@ public class Menu {
 
         // login() - logger brugeren ind
         private void login() {
-            String username = textUI.promptForUsername();
-            String password = textUI.promptForPassword();
+            String username = ui.promptForUsername();
+            String password = ui.promptForPassword();
 
             // Tjek om brugernavn og password matcher
             for (User user : users) { // Gennemgå alle users
                 if (user.getUsername().equals(username) &&
                         user.getPassword().equals(password)) {
                     currentUser = user;
-                    textUI.showMessage("Login succesfuldt!");
+                    ui.showMessage("Login succesfuldt!");
                     return;
                 }
             }
 
-            textUI.showMessage("Forkert login!");
+            ui.showMessage("Forkert login!");
         }
 
         // showMenu() - viser hovedmenuen
@@ -61,13 +63,13 @@ public class Menu {
 
             while (running) { // Gentag indtil bruger logger ud
                 // Vis valgmuligheder
-                textUI.showMessage("\n1. Søg film");
-                textUI.showMessage("2. Søg kategori");
-                textUI.showMessage("3. Mine sete film");
-                textUI.showMessage("4. Mine gemte film");
-                textUI.showMessage("5. Log ud");
+                ui.showMessage("\n1. Søg film");
+                ui.showMessage("2. Søg kategori");
+                ui.showMessage("3. Mine sete film");
+                ui.showMessage("4. Mine gemte film");
+                ui.showMessage("5. Log ud");
 
-                String choice = textUI.getUserInput();
+                String choice = ui.getUserInput("Vælg en mulighed (1-5):");
 
                 // Hvad skal der ske?
                 switch (choice) {
@@ -82,44 +84,70 @@ public class Menu {
 
         // searchMedia() - søger efter en specifik film
         public void searchMedia() {
-            textUI.showMessage("\nIndtast filmtitel: ");
-            String searchTitle = textUI.getUserInput();
+            String searchTitle = ui.getUserInput("\nIndtast titel: ");
 
-            // Find film der matcher søgningen
-            for (Media m : media) { //Gennemgå alle film
-                if (m.getTitle().contains(searchTitle)) { // Hvis titlen matcher
-                    textUI.showMessage("Fundet: " + m.getTitle());  // Vis filmen
+            boolean found = false;
+
+            // 1. Søg i media listen (film OG serier)
+            for (Media m : media) {
+                if (m.getTitle().toLowerCase().contains(searchTitle.toLowerCase())) {
+                    ui.showMessage("Fundet: " + m.getTitle());
+                    found = true;
                 }
+            }
+
+            // 2. Søg i FileIO movies
+            List<String> movieLines = fileIO.loadMovies();
+            for (String movieLine : movieLines) {
+                if (movieLine.toLowerCase().contains(searchTitle.toLowerCase())) {
+                    ui.showMessage("Fundet film: " + movieLine.split(";")[0]);
+                    found = true;
+                }
+            }
+
+            // 3. Søg i FileIO series
+            List<String> seriesLines = fileIO.loadSeries();
+            for (String seriesLine : seriesLines) {
+                if (seriesLine.toLowerCase().contains(searchTitle.toLowerCase())) {
+                    ui.showMessage("Fundet serie: " + seriesLine.split(";")[0]);
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                ui.showMessage("Ingen film eller serier fundet med '" + searchTitle + "'");
             }
         }
 
+
         // searchByCategory() - søger film i en kategori
         private void searchByCategory() {
-            textUI.showMessage("Vælg medie kategori: ");
-            String category = textUI.getUserInput();
+            String category = ui.getUserInput("Vælg medie kategori: ");
 
             // Vis alle film i den kategori
             for (Media m : media) {
                 // Tjek om filmen har denne kategori
-                textUI.showMessage(m.getTitle());
+                ui.showMessage(m.getTitle());
             }
         }
 
         // showWatchedMedia() - viser brugerens sete film
         private void showWatchedMedia() {
-            textUI.showMessage("Dine sete film: ");
+            ui.showMessage("Dine sete film: ");
 
             for (Media m : currentUser.getWatchedMedia()) {
-                textUI.showMessage("- " + m.getTitle());
+                ui.showMessage("- " + m.getTitle());
             }
         }
 
         // showSavedMedia() - viser brugerens gemte film
         private void showSavedMedia() {
-            textUI.showMessage("Dine gemte film: ");
+            ui.showMessage("Dine gemte film: ");
 
             for (Media m : currentUser.getSavedMedia()) {
-                textUI.showMessage("- " + m.getTitle());
+                ui.showMessage("- " + m.getTitle());
             }
         }
+
+
 }

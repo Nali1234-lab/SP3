@@ -1,4 +1,3 @@
-import util.TextUI;
 
 import java.util.ArrayList;
 
@@ -15,11 +14,6 @@ public abstract class Media {
         this.categories=  categories;
     }
 
-    // Abstracte metoder - skal implementeres i subklasser
-
-    public abstract void play(TextUI textUI);
-
-    public abstract void pause(TextUI textUI);
 
     public String getTitle() {
         return title;
