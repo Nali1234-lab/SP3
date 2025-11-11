@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private String username;              //  brugernavn
     private String password;              // adgangskode
     private List<Media> watchedMedia;     // Liste over set indhold
     private List<Media> savedMedia;       // Liste over gemt indhold
-
 
 
 
@@ -140,7 +142,6 @@ public class User {
             }
         }
     }
-
 
 
 

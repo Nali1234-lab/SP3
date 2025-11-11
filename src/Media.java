@@ -1,3 +1,5 @@
+import util.TextUI;
+
 import java.util.ArrayList;
 
 public abstract class Media {
@@ -13,11 +15,29 @@ public abstract class Media {
         this.categories=  categories;
     }
 
-    public void play(){
+    // Abstracte metoder - skal implementeres i subklasser
 
+    public abstract void play(TextUI textUI);
+
+    public abstract void pause(TextUI textUI);
+
+    public String getTitle() {
+        return title;
     }
 
-    public void pause(){
-
+    public int getReleaseYear() {
+        return releaseYear;
     }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+//from movie class override - IKKE PERMANENT??ove
+    public abstract void play();
+
+    public abstract void pause();
 }

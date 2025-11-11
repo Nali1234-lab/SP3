@@ -1,3 +1,4 @@
+import util.TextUI;
 import java.util.ArrayList;
 
 public class Series extends Media {
@@ -7,4 +8,19 @@ public class Series extends Media {
         this.season=season;
 
     }
+
+    @Override
+    public void play(TextUI textUI) {
+        textUI.showMessage("Afspiller serie: " + title);
+    }
+
+    @Override
+    public void pause(TextUI textUI) {
+        textUI.showMessage("Serie sat på pause: " + title);
+    }
+
+    public ArrayList<Season> getSeasons() {
+        return season;
+    }
 }
+

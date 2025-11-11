@@ -1,3 +1,5 @@
+import util.TextUI;
+
 import java.util.ArrayList;
 
 public class Movie extends Media {
@@ -7,13 +9,16 @@ public class Movie extends Media {
         super(title, releaseYear, rating, categories);
         this.duration=duration;
     }
+
+    //override med textUI istedet for sout
     @Override
-    public void play() {
-        System.out.println("Playing movie: " + title); //den skal ændret vha. textUI...
+    public void play(TextUI textUI) {
+
     }
 
     @Override
-    public void pause() {
-        System.out.println("Movie paused: " + title);// den skal ændret vha. textUI...
+    public void pause(TextUI textUI) {
+
     }
+
 }
