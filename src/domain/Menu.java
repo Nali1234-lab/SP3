@@ -1,7 +1,8 @@
+package domain;
+
 import util.Fileio;
 import util.TextUI;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
@@ -24,22 +25,84 @@ public class Menu {
 
 
     // start() - starter hele programmet
+// start() - starter hele programmet
     public void start() {
         ui.showMessage("Velkommen til Streaming Menuen.");
-        // kun til at teste password.
-        User testUser = new User("test", "123");
-        users.add(testUser);
 
-        // Login først
-        login();
+        // INDLÆS brugere fra fil
+        users = fileIO.loadUsers();
+        ui.showMessage("Indlæste " + users.size() + " brugere fra filen.");
 
-        // Hvis login lykkedes, vis menu
-        if (currentUser != null) {
-            showMenu();
+        boolean loggedIn = false;
+
+        // Loop indtil brugeren er logget ind
+        while (!loggedIn) {
+            ui.showMessage("\n  VÆLG EN MULIGHED ");
+            ui.showMessage("1. Login");
+            ui.showMessage("2. Registrer ny bruger");
+            ui.showMessage("3. Afslut");
+
+            String choice = ui.getUserInput("Vælg (1-3): ");
+
+            switch (choice) {
+                case "1":
+                    login();
+                    if (currentUser != null) {
+                        loggedIn = true;
+                    }
+                    break;
+
+                case "2":
+                    register();
+                    ui.showMessage("Du kan nu logge ind med din nye bruger!");
+                    break;
+
+                case "3":
+                    ui.showMessage("Gemmer data...");
+                    fileIO.saveUsers(users);  // GEM brugere før afslutning
+                    ui.showMessage("Farvel!");
+                    return;
+
+                default:
+                    ui.showMessage("Ugyldigt valg!");
+            }
         }
+
+        // Når brugeren er logget ind, vis hovedmenuen
+        showMenu();
+
+        // GEM brugere når brugeren logger ud
+        ui.showMessage("Gemmer data...");
+        fileIO.saveUsers(users);
     }
 
-        // login() - logger brugeren ind
+    // Register metode til oprettelse af ny bruger
+    public void register() {
+        // 1. Få brugernavn fra brugeren
+        String username = ui.promptForUsername();
+
+        // 2. Tjek om brugernavnet allerede findes
+        for (User user : users) {  // Gennemgå alle eksisterende brugere
+            if (user.getUsername().equals(username)) {  // Hvis navnet findes
+                ui.showMessage("Brugernavnet er allerede taget!");
+                return;  // Stop metoden her
+            }
+        }
+
+        // 3. Få password fra brugeren
+        String password = ui.promptForPassword();
+
+        // 4. Opret ny bruger
+        User newUser = new User(username, password);
+
+        // 5. Tilføj brugeren til listen
+        users.add(newUser);
+
+        // 6. Bekræft oprettelsen
+        ui.showMessage("Bruger '" + username + "' er nu oprettet!");
+    }
+
+    // login() - logger brugeren ind
         private void login() {
             String username = ui.promptForUsername();
             String password = ui.promptForPassword();

@@ -1,3 +1,5 @@
+package domain;
+
 public class Episode {
     private String title;
     private int duration;
@@ -15,7 +17,7 @@ public class Episode {
     }
 
     public void pause() {
-        System.out.println("Episode paused: " + title); // bruge textui. senere
+        System.out.println("domain.Episode paused: " + title); // bruge textui. senere
     }
 
 

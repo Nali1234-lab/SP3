@@ -1,0 +1,111 @@
+@startuml
+!pragma layout smetana
+
+class User {
+  - username: String
+  - password: String
+  - watchedMedia: List<Media>
+  - savedMedia: List<Media>
+  + addToWatched()
+  + addToSaved()
+}
+
+abstract class Media {
+  # title: String
+  # releaseYear: int
+  # rating: double
+  # categories: List<Category>
+  + play()
+  +pause()
+}
+
+class Movie {
+  - duration: int
+}
+
+class Series {
+  - seasons: List<Season>
+}
+
+class Season {
+  - seasonNumber: int
+  - episodes: List<Episode>
+}
+
+class Episode {
+  - title: String
+  - duration: int
+}
+
+enum Category {
+ CRIME
+ WAR
+ DRAMA
+ FAMILY
+ ROMANCE
+ SCI_FI
+ FANTASY
+ MYSTERY
+ THRILLER
+ ADVENTURE
+ HISTORY
+ BIOGRAPHY
+ HORROR
+ ANIMATION
+ ACTION
+ WESTERN
+ DOCUMENTARY
+ TALK_SHOW
+ SPORT
+}
+
+class Menu {
+  - users: List<User>
+  - media: List<Media>
+  - currentUser: User
+  - textUI: TextUI
+  - fileIO: fileIo
+  + start()
+  + register()
+  + login()
+  + showMenu()
+  + searchMedia()
+  + searchByCategory()
+  + showWatchedMedia()
+  + showSavedMedia()
+}
+
+class TextUI {
+  - scanner: Scanner
+  + getUserInput(): String
+  + showMessage(message: String)
+  + promptForUsername(): String
+  + promptForPassword(): String
+}
+
+class fileIo {
+  - userFile: String
+  + loadMovies()
+  + loadSeries()
+  + saveUsers(users: List<User>)
+}
+
+' Arv
+Media <|-- Movie
+Media <|-- Series
+
+' Komposition
+Series *-- Season
+Season *-- Episode
+
+' Association
+User --> Media
+Media --> Category
+Menu --> User
+Menu --> Media
+
+' Dependency
+Menu --> TextUI
+Menu --> fileIo
+
+@enduml

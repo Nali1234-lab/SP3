@@ -1,3 +1,5 @@
+package domain;
+
 import java.util.ArrayList;
 
 public class Movie extends Media {
@@ -11,13 +13,13 @@ public class Movie extends Media {
 
     @Override
     public void play() {
-        // Movie afspilningslogik her
+        // domain.Movie afspilningslogik her
         System.out.println("Afspiller film: " + title);
     }
 
     @Override
     public void pause() {
-        // Movie pauselogik her  
+        // domain.Movie pauselogik her
         System.out.println("Film på pause: " + title);
     }
 }

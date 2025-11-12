@@ -1,4 +1,5 @@
-import util.TextUI;
+package domain;
+
 import java.util.ArrayList;
 
 public class Series extends Media {
@@ -12,13 +13,13 @@ public class Series extends Media {
 
     @Override
     public void play() {
-        // Series afspilningslogik - TextUI håndteres i Menu
+        // domain.Series afspilningslogik - TextUI håndteres i domain.Menu
         System.out.println("Starter serie: " + title);
     }
 
     @Override
     public void pause() {
-        // Series pauselogik
+        // domain.Series pauselogik
         System.out.println("Serie på pause: " + title);
     }
 

@@ -17,11 +17,11 @@ Media <|-- Series : is-a
 Series --  Sæson : består af
 Sæson --  Episode : består af
 
-' Association - Bruger til Media
+' Association - Bruger til domain.Media
 Bruger -- Media : har set
 Bruger -- Media : vil se
 
-' Association - Media til Kategori
+' Association - domain.Media til Kategori
 Media -- Kategori : tilhører
 
 @enduml
