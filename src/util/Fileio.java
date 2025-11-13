@@ -11,6 +11,26 @@ public class Fileio {
 
 
     public List<String> loadMovies() {
+        try {
+            File file = new File("Data/movies.txt");
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                // Parse linjen - f.eks. "The Godfather; 1972; Crime, Drama; 9,2;"
+                String[] parts = line.split(";");
+
+                String title = parts[0].trim();
+                int year = Integer.parseInt(parts[1].trim());
+                String[] genres = parts[2].trim().split(",");
+                double rating = Double.parseDouble(parts[3].trim().replace(",", "."));
+
+                // Opret Movie objekt og gem det i en liste
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Filen blev ikke fundet!");
+        }
         return loadFile(movieFile);
     }
 

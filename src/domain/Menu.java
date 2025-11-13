@@ -58,13 +58,12 @@ public class Menu {
                     break;
 
                 case "3":
-                    ui.showMessage("Gemmer data...");
-                    fileIO.saveUsers(users);  // GEM brugere før afslutning
                     ui.showMessage("Farvel!");
+                    fileIO.saveUsers(users);  // GEM brugere før afslutning
                     return;
 
                 default:
-                    ui.showMessage("Ugyldigt valg!");
+                    ui.showMessage("Bruger allerede oprettet!");
             }
         }
 
@@ -72,7 +71,7 @@ public class Menu {
         showMenu();
 
         // GEM brugere når brugeren logger ud
-        ui.showMessage("Gemmer data...");
+        //ui.showMessage("Gemmer data...");
         fileIO.saveUsers(users);
     }
 

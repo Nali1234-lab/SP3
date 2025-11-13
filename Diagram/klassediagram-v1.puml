@@ -6,8 +6,6 @@ class User {
   - password: String
   - watchedMedia: List<Media>
   - savedMedia: List<Media>
-  + addToWatched()
-  + addToSaved()
 }
 
 abstract class Media {

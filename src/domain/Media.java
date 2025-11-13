@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 
 public abstract class Media {
-    protected String title;
+    protected static String title;
     protected int releaseYear;
     protected double rating;
     protected ArrayList<Category> categories = new ArrayList<>();
@@ -16,7 +16,7 @@ public abstract class Media {
     }
 
 
-    public String getTitle() {
+    public static String getTitle() {
         return title;
     }
 
@@ -31,7 +31,7 @@ public abstract class Media {
     public ArrayList<Category> getCategories() {
         return categories;
     }
-//from movie class override - IKKE PERMANENT??ove
+
     public abstract void play();
 
     public abstract void pause();

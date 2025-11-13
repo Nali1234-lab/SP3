@@ -11,15 +11,14 @@ public class Movie extends Media {
         this.duration = duration;
     }
 
-    @Override
+
     public void play() {
         // domain.Movie afspilningslogik her
-        System.out.println("Afspiller film: " + title);
+        System.out.println("Afspiller film: " + getTitle());
     }
 
-    @Override
     public void pause() {
         // domain.Movie pauselogik her
-        System.out.println("Film på pause: " + title);
+        System.out.println("Film på pause: " + getTitle());
     }
 }
